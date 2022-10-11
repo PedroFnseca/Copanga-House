@@ -23,8 +23,8 @@ public class ListaDispositivos extends ListActivity {
 
     private BluetoothAdapter bluetoothAdapter2 = null;
 
-    static String ENDERECO_MAC = null;
-    static String NOME_DISPOSITIVO = null;
+    public static final String NOME_DISPOSITIVO = null;
+    public static final String ENDERECO_MAC = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,8 +56,9 @@ public class ListaDispositivos extends ListActivity {
         String nomeDispositivo = infoGeral.split("\n")[0];
 
         Intent retornaMac = new Intent();
+        // Depois tentar coletar esse dado na outra tela
+        //retornaMac.putExtra(NOME_DISPOSITIVO, nomeDispositivo);
         retornaMac.putExtra(ENDERECO_MAC, enderecoMac);
-        retornaMac.putExtra(NOME_DISPOSITIVO, nomeDispositivo);
         setResult(RESULT_OK, retornaMac);
         finish();
     }

@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         bluetoothSocket.close();
                         conexao = false;
                         btnConectar.setText("Conectar");
-                        Toast.makeText(getApplicationContext(), "Bluetooth foi desconectado", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), ENDERECO_MAC + " desconectado", Toast.LENGTH_LONG).show();
                     } catch (IOException erro){
                         Toast.makeText(getApplicationContext(), "Ocorreu um erro" + erro, Toast.LENGTH_LONG).show();
                     }
@@ -101,21 +101,22 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_CONECTION_BT:
                 if(resultCode == Activity.RESULT_OK){
                     // Coleta o MAC e dispositivo selecionado pelo usuário da outra activity
+                    //NOME_DISPOSITIVO = data.getExtras().getString(ListaDispositivos.NOME_DISPOSITIVO);
                     ENDERECO_MAC = data.getExtras().getString(ListaDispositivos.ENDERECO_MAC);
-                    NOME_DISPOSITIVO = data.getExtras().getString(ListaDispositivos.NOME_DISPOSITIVO);
 
                     // Conecta no dispositivo selecionado
-                    bluetoothDevice = bluetoothAdapter.getRemoteDevice(ENDERECO_MAC);
+                     bluetoothDevice = bluetoothAdapter.getRemoteDevice(ENDERECO_MAC);
+
                     try{
                         bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(uuid);
                         bluetoothSocket.connect();
                         conexao = true;
                         btnConectar.setText("Desconectar");
 
-                        Toast.makeText(getApplicationContext(), "Conectado com: " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Conectado com: " + ENDERECO_MAC, Toast.LENGTH_LONG).show();
                     } catch (IOException erro){
                         conexao = false;
-                        Toast.makeText(getApplicationContext(), "Erro ao conectar com " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Erro ao conectar com " + ENDERECO_MAC, Toast.LENGTH_LONG).show();
                     }
 
                 } else{
