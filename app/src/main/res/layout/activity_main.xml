@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1B325F"
+    android:background="#192039"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,10 +14,10 @@
         android:text="COZINHA"
         android:textColor="#ffff"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton3"
-        app:layout_constraintStart_toStartOf="@+id/imageButton3"
-        app:layout_constraintTop_toTopOf="@+id/imageButton3"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCozinha"
+        app:layout_constraintEnd_toEndOf="@+id/imgCozinha"
+        app:layout_constraintStart_toStartOf="@+id/imgCozinha"
+        app:layout_constraintTop_toTopOf="@+id/imgCozinha"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -27,10 +27,10 @@
         android:text="SALA"
         android:textColor="#ffff"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton2"
-        app:layout_constraintStart_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toTopOf="@+id/imageButton2"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSala"
+        app:layout_constraintEnd_toEndOf="@+id/imgSala"
+        app:layout_constraintStart_toStartOf="@+id/imgSala"
+        app:layout_constraintTop_toTopOf="@+id/imgSala"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -40,10 +40,10 @@
         android:text="VARANDA"
         android:textColor="#ffff"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton4"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton4"
-        app:layout_constraintStart_toStartOf="@+id/imageButton4"
-        app:layout_constraintTop_toTopOf="@+id/imageButton4"
+        app:layout_constraintBottom_toBottomOf="@+id/imgVaranda"
+        app:layout_constraintEnd_toEndOf="@+id/imgVaranda"
+        app:layout_constraintStart_toStartOf="@+id/imgVaranda"
+        app:layout_constraintTop_toTopOf="@+id/imgVaranda"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -53,60 +53,70 @@
         android:text="QUARTO"
         android:textColor="#ffff"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageButton"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton"
-        app:layout_constraintStart_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="@+id/imageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/imgQuarto"
+        app:layout_constraintEnd_toEndOf="@+id/imgQuarto"
+        app:layout_constraintStart_toStartOf="@+id/imgQuarto"
+        app:layout_constraintTop_toTopOf="@+id/imgQuarto"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/imgQuarto"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="399dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton3"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintBottom_toTopOf="@+id/imgCozinha"
+        app:layout_constraintEnd_toStartOf="@+id/imgSala"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/quarto" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imgSala"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="399dp"
         android:backgroundTint="#00FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/imageButton4"
+        app:layout_constraintBottom_toTopOf="@+id/imgVaranda"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/imgQuarto"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sala" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/imgCozinha"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+        app:layout_constraintEnd_toStartOf="@+id/imgVaranda"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/imgQuarto"
         app:srcCompat="@drawable/cozinha" />
 
     <ImageButton
-        android:id="@+id/imageButton4"
+        android:id="@+id/imgVaranda"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:backgroundTint="#00FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageButton3"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:layout_constraintStart_toEndOf="@+id/imgCozinha"
+        app:layout_constraintTop_toBottomOf="@+id/imgSala"
         app:srcCompat="@drawable/varanda" />
+
+    <Button
+        android:id="@+id/btnConectar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="151dp"
+        android:text="Conectar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
