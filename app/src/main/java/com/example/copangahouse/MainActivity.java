@@ -1,12 +1,15 @@
 package com.example.copangahouse;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -19,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     BluetoothAdapter bluetoothAdapter = null;
     private static final int REQUEST_ENABLE_BT = 1;
+    private static final int REQUEST_CONECTION_BT = 2;
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,20 +37,38 @@ public class MainActivity extends AppCompatActivity {
 
         btnConectar = (Button)findViewById(R.id.btnConectar);
 
+        boolean conexao = false;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        // Caso não tenha bluetooth
         if(bluetoothAdapter == null){
             Toast.makeText(getApplicationContext(), "O seu dispositivo não possui bluetooth", Toast.LENGTH_LONG).show();
-        } else if (!bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
+        // Caso o bluetooth esteja desligado
+        else if (!bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE); // Faz a tela padrão de permissão
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT); // Ativa o bluetoth
+        }
+
+        btnConectar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(conexao){
+                    // desconectar
+                } else{
+                    // conectar
+                    Intent abreLista = new Intent(MainActivity.this, ListaDispositivos.class);
+                    startActivityForResult(abreLista, REQUEST_CONECTION_BT);
+                }
+            }
+        });
     }
 
-//    @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        // super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case REQUEST_ENABLE_BT:
+                // Caso a permissão seja aceita de ativação de bluetooth
                 if (resultCode == Activity.RESULT_OK) {
                     Toast.makeText(getApplicationContext(), "O bluetooth foi ativado!", Toast.LENGTH_LONG).show();
                 } else {
@@ -53,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }
