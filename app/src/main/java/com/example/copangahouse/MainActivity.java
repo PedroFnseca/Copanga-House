@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_CONECTION_BT = 2;
 
+    // Dispositivo selecionado
+    private static String ENDERECO_MAC = null;
+    private static String NOME_DISPOSITIVO = null;
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 }
                 break;
+            case REQUEST_CONECTION_BT:
+                if(resultCode == Activity.RESULT_OK){
+                    // Coleta o MAC e dispositivo selecionado pelo usuário da outra activity
+                    ENDERECO_MAC = data.getExtras().getString(ListaDispositivos.ENDERECO_MAC);
+                    NOME_DISPOSITIVO = data.getExtras().getString(ListaDispositivos.NOME_DISPOSITIVO);
+                    
+                    Toast.makeText(getApplicationContext(), "Dispositivo selecionado: " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+                } else{
+                    Toast.makeText(getApplicationContext(), "Falha ao obter o MAC", Toast.LENGTH_LONG).show();
+                }
             default:
                 super.onActivityResult(requestCode, resultCode, data);
         }
