@@ -34,11 +34,11 @@ public class ListaDispositivos extends ListActivity {
 
         bluetoothAdapter2 = BluetoothAdapter.getDefaultAdapter();
 
-        Set<BluetoothDevice> dispositivosPareados = bluetoothAdapter2.getBondedDevices();
+        @SuppressLint("MissingPermission") Set<BluetoothDevice> dispositivosPareados = bluetoothAdapter2.getBondedDevices();
 
         if (dispositivosPareados.size() > 0){
             for (BluetoothDevice dispositivos: dispositivosPareados){
-                String nomeBT = dispositivos.getName();
+                @SuppressLint("MissingPermission") String nomeBT = dispositivos.getName();
                 String macBT = dispositivos.getAddress();
                 ArrayBluetooth.add(nomeBT + "\n" + macBT);
             }
@@ -54,7 +54,6 @@ public class ListaDispositivos extends ListActivity {
         String infoGeral = ((TextView) v).getText().toString();
         String enderecoMac = infoGeral.substring(infoGeral.length() - 17);
         String nomeDispositivo = infoGeral.split("\n")[0];
-
 
         Intent retornaMac = new Intent();
         retornaMac.putExtra(ENDERECO_MAC, enderecoMac);

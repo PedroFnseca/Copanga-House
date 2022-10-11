@@ -7,12 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import java.io.IOException;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,12 +26,18 @@ public class MainActivity extends AppCompatActivity {
     Button btnConectar;
 
     BluetoothAdapter bluetoothAdapter = null;
+    BluetoothDevice bluetoothDevice = null;
+    BluetoothSocket bluetoothSocket = null;
+
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_CONECTION_BT = 2;
+    boolean conexao = false;
 
     // Dispositivo selecionado
     private static String ENDERECO_MAC = null;
     private static String NOME_DISPOSITIVO = null;
+
+    UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
     @SuppressLint("MissingPermission")
     @Override
@@ -40,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         imgVaranda = (ImageButton)findViewById(R.id.imgVaranda);
 
         btnConectar = (Button)findViewById(R.id.btnConectar);
-
-        boolean conexao = false;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         // Caso não tenha bluetooth
@@ -59,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(conexao){
                     // desconectar
+                    try {
+                        bluetoothSocket.close();
+                        conexao = false;
+                        btnConectar.setText("Conectar");
+                        Toast.makeText(getApplicationContext(), "Bluetooth foi desconectado", Toast.LENGTH_LONG).show();
+                    } catch (IOException erro){
+                        Toast.makeText(getApplicationContext(), "Ocorreu um erro" + erro, Toast.LENGTH_LONG).show();
+                    }
                 } else{
                     // conectar
                     Intent abreLista = new Intent(MainActivity.this, ListaDispositivos.class);
@@ -68,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
@@ -85,8 +103,21 @@ public class MainActivity extends AppCompatActivity {
                     // Coleta o MAC e dispositivo selecionado pelo usuário da outra activity
                     ENDERECO_MAC = data.getExtras().getString(ListaDispositivos.ENDERECO_MAC);
                     NOME_DISPOSITIVO = data.getExtras().getString(ListaDispositivos.NOME_DISPOSITIVO);
-                    
-                    Toast.makeText(getApplicationContext(), "Dispositivo selecionado: " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+
+                    // Conecta no dispositivo selecionado
+                    bluetoothDevice = bluetoothAdapter.getRemoteDevice(ENDERECO_MAC);
+                    try{
+                        bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(uuid);
+                        bluetoothSocket.connect();
+                        conexao = true;
+                        btnConectar.setText("Desconectar");
+
+                        Toast.makeText(getApplicationContext(), "Conectado com: " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+                    } catch (IOException erro){
+                        conexao = false;
+                        Toast.makeText(getApplicationContext(), "Erro ao conectar com " + NOME_DISPOSITIVO, Toast.LENGTH_LONG).show();
+                    }
+
                 } else{
                     Toast.makeText(getApplicationContext(), "Falha ao obter o MAC", Toast.LENGTH_LONG).show();
                 }
