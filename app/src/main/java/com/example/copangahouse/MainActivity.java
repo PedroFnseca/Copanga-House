@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_ENABLE_BT = 1;
     private static final int REQUEST_CONECTION_BT = 2;
     boolean conexao = false;
+
+    ConnectedThread connectedThread;
 
     // Dispositivo selecionado
     private static String ENDERECO_MAC = null;
@@ -83,6 +87,50 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imgQuarto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(conexao){
+                    connectedThread.enviar("aaaaaaaaaa");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imgSala.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(conexao){
+                    connectedThread.enviar("bbbbbbbbbb");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imgCozinha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(conexao){
+                    connectedThread.enviar("cccccccccc");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imgVaranda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(conexao){
+                    connectedThread.enviar("cccccccccc");
+                }else{
+                    Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @SuppressLint("MissingPermission")
@@ -111,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
                         bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(uuid);
                         bluetoothSocket.connect();
                         conexao = true;
+
+                        connectedThread = new ConnectedThread(bluetoothSocket);
+                        connectedThread.start();
+
                         btnConectar.setText("Desconectar");
 
                         Toast.makeText(getApplicationContext(), "Conectado com: " + ENDERECO_MAC, Toast.LENGTH_LONG).show();
@@ -124,6 +176,59 @@ public class MainActivity extends AppCompatActivity {
                 }
             default:
                 super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    // Classe responsavel por realizar leitura e escrita no bluetooth
+    private class ConnectedThread extends Thread {
+        private final InputStream mmInStream;
+        private final OutputStream mmOutStream;
+        private byte[] mmBuffer; // mmBuffer store for the stream
+
+        public ConnectedThread(BluetoothSocket socket) {
+            InputStream tmpIn = null;
+            OutputStream tmpOut = null;
+
+            // Get the input and output streams; using temp objects because
+            // member streams are final.
+            try {
+                tmpIn = socket.getInputStream();
+            } catch (IOException e) {}
+            try {
+                tmpOut = socket.getOutputStream();
+            } catch (IOException e) {}
+
+            mmInStream = tmpIn;
+            mmOutStream = tmpOut;
+        }
+
+        public void run() {
+            mmBuffer = new byte[1024];
+            int numBytes; // bytes returned from read()
+
+            // Keep listening to the InputStream until an exception occurs.
+//            while (true) {
+//                try {
+//                    // Read from the InputStream.
+//                    numBytes = mmInStream.read(mmBuffer);
+//                    // Send the obtained bytes to the UI activity.
+//                    // Message readMsg = handler.obtainMessage(
+//                    //        MessageConstants.MESSAGE_READ, numBytes, -1,
+//                    //        mmBuffer);
+//                    // readMsg.sendToTarget();
+//                } catch (IOException e) {
+//                    break;
+//                }
+//            }
+        }
+
+        public void enviar(String dadosEnviar) {
+            byte[] msgBuffer = dadosEnviar.getBytes();
+            try {
+                mmOutStream.write(msgBuffer);
+
+            } catch (IOException e) {
+            }
         }
     }
 }
