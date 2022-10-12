@@ -17,7 +17,7 @@
 ### A parte física do projeto é bem simples, basta ter um Arduino/ESP32 e um módulo Bluetooth Low Energy (BLE) para que o projeto funcione.
 
 <p align="center">
-  <!-- Imagem da casa aqui -->
+  <img alt="Casa" width="500" src="https://user-images.githubusercontent.com/97262778/195239273-bf10a403-5798-4424-b35a-58e5066edd52.jpeg"/>
   <!-- Imagem do circuito aqui -->
 </p>
 
@@ -28,7 +28,7 @@
 ### O aplicativo foi desenvolvio em Java no Android Studio. Ele é bem simples, possui um botão para conectar e selecionar o dispositivo Bluetooth e quando conectado ele altera para um botão para desconectar. Os outros botões são para ligar e desligar os comodos da casa.
 
 <p align="center">
-  <!-- Imagem da aplicação aqui -->
+  <img alt="APP" height="500" width="250" src="https://user-images.githubusercontent.com/97262778/195238968-4717f97c-712b-41b4-8b61-b11ea70fc684.jpeg"/>
 </p>
 
 <br>
