@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(conexao){
-                    connectedThread.enviar("cccccccccc");
+                    connectedThread.enviar("dddddddddd");
                 }else{
                     Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
                 }
@@ -200,26 +200,6 @@ public class MainActivity extends AppCompatActivity {
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
-        }
-
-        public void run() {
-            mmBuffer = new byte[1024];
-            int numBytes; // bytes returned from read()
-
-            // Keep listening to the InputStream until an exception occurs.
-//            while (true) {
-//                try {
-//                    // Read from the InputStream.
-//                    numBytes = mmInStream.read(mmBuffer);
-//                    // Send the obtained bytes to the UI activity.
-//                    // Message readMsg = handler.obtainMessage(
-//                    //        MessageConstants.MESSAGE_READ, numBytes, -1,
-//                    //        mmBuffer);
-//                    // readMsg.sendToTarget();
-//                } catch (IOException e) {
-//                    break;
-//                }
-//            }
         }
 
         public void enviar(String dadosEnviar) {
