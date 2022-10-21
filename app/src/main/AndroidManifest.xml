@@ -32,6 +32,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity android:name=".ListaDispositivos"
             android:theme="@android:style/Theme.DeviceDefault.Dialog"
             android:label="Dispositivos Pareados"

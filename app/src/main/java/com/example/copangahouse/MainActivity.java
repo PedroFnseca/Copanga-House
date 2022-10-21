@@ -9,12 +9,15 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +27,11 @@ import java.util.UUID;
 public class MainActivity extends AppCompatActivity {
 
     ImageButton imgQuarto, imgSala, imgCozinha, imgVaranda;
+
+    public String valueQuarto = "a";
+    public String valueSala = "b";
+    public String valueCozinha = "c";
+    public String valueVaranda = "d";
 
     Button btnConectar;
 
@@ -88,47 +96,87 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //----------------------------------------------------------------------------------------//
+
         imgQuarto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(conexao){
-                    connectedThread.enviar("aaaaaaaaaa");
+                    connectedThread.enviar(valueQuarto);
                 }else{
                     Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        imgQuarto.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                alterarValor(valueQuarto, "quarto");
+                return false;
+            }
+        });
+
+        //----------------------------------------------------------------------------------------//
 
         imgSala.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(conexao){
-                    connectedThread.enviar("bbbbbbbbbb");
+                    connectedThread.enviar(valueSala);
                 }else{
                     Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        imgSala.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                alterarValor(valueSala, "sala");
+                return false;
+            }
+        });
+
+        //----------------------------------------------------------------------------------------//
 
         imgCozinha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(conexao){
-                    connectedThread.enviar("dddddddddd");
+                    connectedThread.enviar(valueCozinha);
                 }else{
                     Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        imgCozinha.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                alterarValor(valueCozinha, "cozinha");
+                return false;
+            }
+        });
+
+        //----------------------------------------------------------------------------------------//
+
         imgVaranda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(conexao){
-                    connectedThread.enviar("cccccccccc");
+                    connectedThread.enviar(valueVaranda);
                 }else{
                     Toast.makeText(getApplicationContext(), "Dispositivo não conectado", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        imgVaranda.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                alterarValor(valueVaranda, "varanda");
+                return false;
             }
         });
     }
@@ -189,8 +237,6 @@ public class MainActivity extends AppCompatActivity {
             InputStream tmpIn = null;
             OutputStream tmpOut = null;
 
-            // Get the input and output streams; using temp objects because
-            // member streams are final.
             try {
                 tmpIn = socket.getInputStream();
             } catch (IOException e) {}
@@ -210,5 +256,50 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
             }
         }
+    }
+
+    public boolean alterarValor(String value, String nomeBotao){
+        AlertDialog.Builder Alert = new AlertDialog.Builder(this);
+        final EditText TextField = new EditText(this);
+
+        TextField.setText(value);
+        TextField.setTextSize(25);
+        TextField.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+        Alert
+            .setTitle(nomeBotao.toUpperCase())
+            .setView(TextField)
+            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String valor = TextField.getText().toString();
+
+                    if(valor.equals("")){
+                        Toast.makeText(getApplicationContext(), "Valor inválido", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else if(valor.equals(value)){
+                        return;
+                    }
+                    Toast.makeText(getApplicationContext(), "Valor alterado para: " + valor, Toast.LENGTH_SHORT).show();
+
+                    switch (nomeBotao){
+                        case "quarto":
+                            valueQuarto = valor;
+                            break;
+                        case "sala":
+                            valueSala = valor;
+                            break;
+                        case "cozinha":
+                            valueCozinha = valor;
+                            break;
+                        case "varanda":
+                            valueVaranda = valor;
+                            break;
+                    }
+                }
+            })
+            .create()
+            .show();
+        return true;
     }
 }
