@@ -28,7 +28,7 @@
 ### O aplicativo foi desenvolvio em Java no Android Studio. Ele é bem simples, possui um botão para conectar e selecionar o dispositivo Bluetooth e quando conectado ele altera para um botão para desconectar. Os outros botões são para ligar e desligar os comodos da casa.
 
 <p align="center">
-  <!-- Colocar logo aqui -->
+<img width="150" src="https://user-images.githubusercontent.com/97262778/197307331-08413648-c5a5-4571-bbc9-9f4983b9fd11.png">
 </p>
 
 <br>
@@ -40,13 +40,13 @@
 ### Após o pareamento, entre no aplicativo e clique em conectar, irá aparecer uma lista dos dispositivos pareados com o celular, selecione o Arduino/ESP32 e ele irá conectar automaticamente.
 
 <p align="center">
-<!-- Listagem de dispositivos aqui -->
+<img width="250" src="https://user-images.githubusercontent.com/97262778/197307125-f9326abe-ee4d-498e-97f4-8018471c96d2.jpeg">
 </p>
 
 ### Após a conexão, basta clicar nos botões para ligar e desligar os comodos da casa.
 
 <p align="center">
-<!-- Botões aqui -->
+<img width="250" src="https://user-images.githubusercontent.com/97262778/197307200-143767fe-21c5-46e3-a73c-0567ae5e08a2.jpeg">
 </p>
 
 <br>
@@ -56,7 +56,7 @@
 ### Você pode alterar os caracteres que são enviados para o Arduino/ESP32, para isso basta segurar o botão desejado por alguns segundos, irá aparecer uma caixa de texto para você alterar o caractere, após alterar, basta clicar em salvar e o caractere será alterado.
 
 <p align="center">
-<!-- Alterar caracteres aqui -->
+<img width="250" src="https://user-images.githubusercontent.com/97262778/197307226-e4df5ad9-25c1-4fb3-af42-801ee1d7cbb8.jpeg">
 </p>
 
 <br>
