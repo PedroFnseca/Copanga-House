@@ -64,3 +64,42 @@
 ## Origem do projeto 🦖
 
 ### Este projeto faz parte do meu TCC onde foi desenvolvido uma cidade automatizada em conjunto com um [sistema de monitoramento e controle de irrigação](https://github.com/pedrofnseca/copanga) de uma plantação com solos de diferentes tipos.
+
+<br>
+
+---
+
+## Arquivo para instalação do aplicativo 📁
+
+### O arquivo .apk do aplicativo está disponivel na pasta [releases](./app/release) do projeto.
+
+<br>
+
+## Como instalar o aplicativo? 📲
+
+### Para instalar o aplicativo é nescessario seguir os seguintes passos:
+
+> #### Ou somente baixar o aquivo em .zip no github e seguir até a pasta ```app/release``` e encontrar o arquivo ```Copanga House.apk``` e instalar no celular.
+
+#### 1. Clone o pojeto em sua máquina via terminal com suporte à git 
+```
+git clone https://github.com/PedroFnseca/Copanga-House.git
+```
+
+#### 2. Entre no projeto que foi clonado 
+```
+cd Copanga-House
+```
+
+##### 3. Abra a pasta do .apk 
+```
+cd app/release
+```
+
+#### 4. Transfira o arquivo ```Copanga House.apk``` para o celular
+
+#### 5. Instale o aplicativo no celular (OBS: É nescessario que o celular tenha as configurações de instalação de aplicativos de fontes desconhecidas ativadas e desative o Play Protect)
+
+#### 6. Comece a utilizar e seja feliz 😁
+
+---
